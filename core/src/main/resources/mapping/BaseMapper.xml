@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gdq.bolg.core.dao.UserDao">
+    <!--resultMap-->
+    <resultMap id="userMap" type="UserPO">
+        <id column="id" property="id"/>
+        <id column="create_time" property="createTime"/>
+        <id column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!--baseColumn-->
+    <sql id="baseColumn">
+        create_time,update_time,username,password
+    </sql>
+
+    <insert id="insert" parameterType="UserPO">
+        insert into user_item(<include refid="baseColumn"/>)
+        values(
+        <choose>
+            <when test="createTime != null">
+                #{createTime},
+            </when>
+            <otherwise>
+                now(),
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="updateTime != null">
+                #{updateTime},
+            </when>
+            <otherwise>
+                now(),
+            </otherwise>
+        </choose>
+        )
+    </insert>
+    <select id="selectUserByUsername" parameterType="String" resultMap="userMap">
+        select *
+        from user_item
+        where username = #{username}
+    </select>
+    <select id="selectUsers" resultMap="userMap">
+        select *
+        from user_item
+    </select>
+    <insert id="insertUser" parameterType="UserPO" keyProperty="id">
+        insert into user_item(id, username, password)
+        values (#{id}, #{username}, #{password})
+    </insert>
+
+
+    /**
+    * 插入单条数据
+    *
+    * @param t 数据
+    * @return Integer 主键
+    * @author gdq 2021/1/7
+    */
+    Integer insert(T t);
+
+    /**
+    * 批量插入数据
+    *
+    * @param ts 数据
+    * @return Integer 插入条数
+    * @author gdq 2021/1/7
+    */
+    Integer insertBatch(List
+    <T>
+    ts);
+
+    /**
+    * 删除数据
+    *
+    * @param id 主键
+    * @return Integer 主键
+    * @author gdq 2021/1/7
+    */
+    Integer delete(Integer id);
+
+    /**
+    * 根据条件删除数据
+    *
+    * @param param 条件
+    * @return Integer 删除条数
+    * @author gdq 2021/1/7
+    */
+    Integer deleteByParam(Map<String, Object> param);
+
+    /**
+    * 删除所有数据
+    *
+    * @return Integer 删除条数
+    * @author gdq 2021/1/7
+    */
+    Integer deleteAll();
+
+    /**
+    * 更新单条数据
+    *
+    * @param t 数据
+    * @return Integer 更新条数
+    * @author gdq 2021/1/7
+    */
+    Integer update(T t);
+
+    /**
+    * 根据条件查询数据
+    *
+    * @param param 查询条件
+    * @return List 数据List
+    * @author gdq 2021/1/7
+    */
+    List
+    <T>
+    selectByParam(Map<String, Object> param);
+
+    /**
+    * 查询所有数据
+    *
+    * @return List 数据List
+    * @author gdq 2021/1/7
+    */
+    List
+    <T>
+    selectAll();
+</mapper>

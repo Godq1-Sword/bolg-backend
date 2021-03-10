@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: rocketmq
+  cloud:
+    # 注册及配置中心
+    nacos:
+      # 注册中心
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+# 端口号
+server:
+  port: 8876
+
+# 暴露端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

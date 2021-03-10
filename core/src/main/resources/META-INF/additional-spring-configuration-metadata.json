@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "management.endpoints.web.exposure.include",
+      "type": "java.lang.String",
+      "description": "暴露端点."
+    },
+    {
+      "name": "jwt.algorithm",
+      "type": "java.lang.String",
+      "description": "JWT 算法."
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "JWT 密钥."
+    },
+    {
+      "name": "jwt.expiration",
+      "type": "java.lang.String",
+      "description": "JWT TOKEN 过期时间(分)."
+    },
+    {
+      "name": "jwt.iss",
+      "type": "java.lang.String",
+      "description": "JWT 发布者."
+    }
+  ]
+}

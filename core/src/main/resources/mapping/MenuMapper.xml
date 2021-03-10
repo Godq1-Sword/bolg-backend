@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gdq.bolg.core.dao.MenuDao">
+    <resultMap id="menuMap" type="MenuPO">
+        <id column="id" property="id"/>
+        <id column="parent_id" property="parentId"/>
+        <id column="type" property="type"/>
+        <id column="text" property="text"/>
+        <id column="value" property="value"/>
+    </resultMap>
+    <insert id="insertMenu" parameterType="MenuPO" keyProperty="id">
+        insert into menu_item(id, parent_id, text, value, type)
+        values (#{id}, #{parentId}, #{text}, #{value}, #{type})
+    </insert>
+    <delete id="deleteMenu" parameterType="string">
+        delete
+        from menu_item
+        where id = #{id}
+    </delete>
+    <update id="updateMenu" parameterType="MenuPO">
+        update menu_item
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="text != null">
+                text = #{text},
+            </if>
+            <if test="value != null">
+                value = #{value},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <select id="selectMenuById" resultMap="menuMap" parameterType="string">
+        select *
+        from menu_item
+        where id = #{id}
+    </select>
+    <select id="selectAllMenu" resultMap="menuMap">
+        select *
+        from menu_item
+    </select>
+    <select id="selectMenusByType" resultMap="menuMap" parameterType="string">
+        select *
+        from menu_item
+        where type = #{type}
+    </select>
+    <select id="selectAllType" resultType="string">
+        select type
+        from menu_item
+        group by type
+    </select>
+</mapper>

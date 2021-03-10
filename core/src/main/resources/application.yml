@@ -1,0 +1,86 @@
+# 端口号
+server:
+  port: 7436
+# Spring
+spring:
+  # app
+  application:
+    name: core
+  # redis
+  redis:
+    host: 47.96.106.89
+    port: 6379
+    password: 747436
+    database: 0
+  # 数据源
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/bolg?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: 747436
+      driver-class-name: com.mysql.jdbc.Driver
+      # 初始化连接数
+      initial-size: 5
+      # 回收空闲连接,保持连接数
+      min-idle: 5
+      # 最大活动连接
+      max-active: 20
+      # 连接超时时间
+      max-wait: 3000
+      # 监控,防火墙,日志
+      filters: stat,wall,slf4j
+      max-pool-prepared-statement-per-connection-size: 20
+      # 合并监控数据
+      use-global-data-source-stat: true
+      # 打开监控,慢SQL记录
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMills=5000
+      # 配置监控页面
+      stat-view-servlet:
+        login-username: admin
+        login-password: g@d/q1?Druid
+        # 禁止手动重置监控数据
+        reset-enable: false
+        url-pattern: /druid/*
+        enabled: true
+      # 监控过滤器
+      web-stat-filter:
+        # 添加过滤规则
+        url-pattern: /*
+        # 忽略过滤格式
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+        enabled: true
+  # 微服务
+  cloud:
+    # 注册及配置中心
+    nacos:
+      # 注册中心
+      discovery:
+        server-addr: 127.0.0.1:8848
+  # security
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          github:
+#            client-id: github-client-id
+#            client-secret: github-client-secret
+# 暴露端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: org.gdq.bolg.core.model
+# JWT
+jwt:
+  algorithm: HS256
+  secret: bolg-core
+  expiration: 30
+  iss: godq1
+# 日志
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: D:/Github/bolg/log

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gdq.bolg.core.dao.CodeDao">
+    <resultMap id="codeMap" type="CodePO">
+        <id column="id" property="id"/>
+        <id column="name" property="name"/>
+        <id column="text" property="text"/>
+        <id column="value" property="value"/>
+        <id column="description" property="description"/>
+    </resultMap>
+    <insert id="insertCode" parameterType="CodePO" keyProperty="id">
+        insert into system_code(id, name, text, value, description)
+        values (#{id}, #{name}, #{text}, #{value}, #{description})
+    </insert>
+    <delete id="deleteCode" parameterType="string">
+        delete
+        from system_code
+        where id = #{id}
+    </delete>
+    <update id="updateCode" parameterType="CodePO">
+        update system_code
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="text != null">
+                name = #{text},
+            </if>
+            <if test="value != null">
+                name = #{value},
+            </if>
+            <if test="description != null">
+                name = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <select id="selectCodeById" resultMap="codeMap" parameterType="string">
+        select *
+        from system_code
+        where id = #{id}
+    </select>
+    <select id="selectCodeByName" resultMap="codeMap" parameterType="string">
+        select *
+        from system_code
+        where name = #{name}
+    </select>
+    <select id="selectAllCode" resultMap="codeMap">
+        select *
+        from system_code
+    </select>
+</mapper>

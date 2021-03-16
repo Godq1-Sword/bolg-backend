@@ -24,3 +24,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# idea
+.idea/.gitignore
+.idea/codeStyles/
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/jarRepositories.xml
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+nacos/target/classes/application.yml
+nacos/target/generated-sources/
+rocketmq/target/classes/application.yml
+rocketmq/target/generated-sources/
+rocketmq/target/generated-test-sources/
+.gitignore

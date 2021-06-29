@@ -1,89 +1,79 @@
 package org.gdq.learn.struct.tree;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  * @author gdq
  * date 2020/9/10
- * description 树结构体
+ * 树节点
  */
-public class TreeNode {
-	// 节点大小
-	private int value;
-	// 左节点
-	private TreeNode leftChild;
-	// 右节点
-	private TreeNode rightChild;
-	// 父节点
-	private TreeNode root;
+@Getter
+@Setter
+public class TreeNode<T extends Comparable<T>> {
+    // 节点大小
+    private T value;
+    // 左节点
+    private TreeNode<T> leftChild;
+    // 右节点
+    private TreeNode<T> rightChild;
+    // 父节点
+    private TreeNode<T> parent;
 
-	public TreeNode(int value, TreeNode root) {
-		this.value = value;
-		this.root = root;
-	}
+    /**
+     * 构造方法
+     *
+     * @param value 节点值
+     * @author gdq
+     */
+    public TreeNode(T value) {
+        this.value = value;
+    }
 
-	public TreeNode() {
-	}
+    /**
+     * 前置遍历 - 1.根节点 2.左节点 3.右节点
+     *
+     * @param treeNode 节点
+     * @author gdq 2021/6/29
+     */
+    public void PreTraver(TreeNode<T> treeNode) {
+        System.out.println(treeNode.value);
+        if (treeNode.leftChild != null) {
+            PreTraver(treeNode.leftChild);
+        }
+        if (treeNode.rightChild != null) {
+            PreTraver(treeNode.rightChild);
+        }
+    }
 
-	public static void PreTraver(TreeNode treeNode) {
-		System.out.print(treeNode.value + " ");
-		if (treeNode.leftChild != null) {
-			PreTraver(treeNode.leftChild);
-		}
-		if (treeNode.rightChild != null) {
-			PreTraver(treeNode.rightChild);
-		}
-	}
+    /**
+     * 中置遍历 - 1.左节点 2.根节点 3.右节点
+     *
+     * @param treeNode 节点
+     * @author gdq 2021/6/29
+     */
+    public void MidTraver(TreeNode<T> treeNode) {
+        if (treeNode.leftChild != null) {
+            MidTraver(treeNode.leftChild);
+        }
+        System.out.println(treeNode.value);
+        if (treeNode.rightChild != null) {
+            MidTraver(treeNode.rightChild);
+        }
+    }
 
-	public static void MidTraver(TreeNode treeNode) {
-		if (treeNode.leftChild != null) {
-			PreTraver(treeNode.leftChild);
-		}
-		System.out.println(treeNode.value);
-		if (treeNode.rightChild != null) {
-			PreTraver(treeNode.rightChild);
-		}
-	}
-
-	public static void BehTraver(TreeNode treeNode) {
-		if (treeNode.leftChild != null) {
-			PreTraver(treeNode.leftChild);
-		}
-		System.out.println(treeNode.value);
-		if (treeNode.rightChild != null) {
-			PreTraver(treeNode.rightChild);
-		}
-	}
-
-	public void setLeftChild(TreeNode leftChild) {
-		this.leftChild = leftChild;
-	}
-
-	public void setRightChild(TreeNode rightChild) {
-		this.rightChild = rightChild;
-	}
-
-	public void setRoot(TreeNode root) {
-		this.root = root;
-	}
-
-	public void setValue(int value) {
-		this.value = value;
-	}
-
-	public int getValue() {
-		return value;
-	}
-
-	public TreeNode getLeftChild() {
-		return leftChild;
-	}
-
-	public TreeNode getRightChild() {
-		return rightChild;
-	}
-
-	public TreeNode getRoot() {
-		return root;
-	}
+    /**
+     * 后置遍历 - 1.左节点 2.右节点 3.根节点
+     *
+     * @param treeNode 节点
+     * @author gdq 2021/6/29
+     */
+    public void BehTraver(TreeNode<T> treeNode) {
+        if (treeNode.leftChild != null) {
+            BehTraver(treeNode.leftChild);
+        }
+        System.out.println(treeNode.value);
+        if (treeNode.rightChild != null) {
+            BehTraver(treeNode.rightChild);
+        }
+    }
 }

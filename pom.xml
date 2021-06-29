@@ -22,14 +22,13 @@
         <module>nacos</module>
         <module>rocketmq</module>
         <module>core</module>
-        <module>security</module>
         <module>learn</module>
     </modules>
     <!-- jdk encoding-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>14</java.version>
+        <java.version>16</java.version>
     </properties>
     <!-- 版本管理 -->
     <dependencyManagement>
@@ -102,6 +101,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
         </dependency>
         <!-- config -->
         <dependency>

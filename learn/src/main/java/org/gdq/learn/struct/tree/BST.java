@@ -1,115 +1,92 @@
 package org.gdq.learn.struct.tree;
 
-import java.util.Scanner;
+import lombok.val;
 
 /**
  * @author gdq
  * date 2020/9/10
- * description 二叉查找树BST(左小,右大)
+ * 二叉查找树BST(左小,右大)
  */
-public class BST {
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		while (scanner.hasNext()) {
-			int n = scanner.nextInt();
-			TreeNode bst = new TreeNode(scanner.nextInt(), null);
-			for (int i = 1; i < n; i++) {
-				add(scanner.nextInt(), bst);
-			}
-			TreeNode.PreTraver(bst);
-			System.out.println();
-			int removeA = scanner.nextInt();
-			remove(removeA, bst);
-			TreeNode.PreTraver(bst);
-		}
-	}
+public class BST<T extends Comparable<T>> {
 
-	// 新增
-	private static void add(int a, TreeNode treeNode) {
-		// 小于节点
-		if (a < treeNode.getValue()) {
-			if (treeNode.getLeftChild() == null) {
-				treeNode.setLeftChild(new TreeNode(a, treeNode));
-			} else {
-				add(a, treeNode.getLeftChild());
-			}
-		} else {
-			if (treeNode.getRightChild() == null) {
-				treeNode.setRightChild(new TreeNode(a, treeNode));
-			} else {
-				add(a, treeNode.getRightChild());
-			}
-		}
-	}
+    private TreeNode<T> root;
 
-	// 删除
-	private static void remove(int a, TreeNode treeNode) {
-		// 确认节点
-		System.out.println(treeNode.getValue());
-		if (a == treeNode.getValue()) {
-			TreeNode root = treeNode.getRoot();
-			// 存在左节点
-			boolean eLC = treeNode.getLeftChild() == null;
-			// 存在右节点
-			boolean eRC = treeNode.getRightChild() == null;
-			// 当前节点是左节点
-			boolean eRL = root.getLeftChild() != null && a == root.getLeftChild().getValue();
-			// 无子节点
-			if (eLC && eRC) {
-				// 断左
-				if (eRL) {
-					root.setLeftChild(null);
-					// 断右
-				} else {
-					root.setRightChild(null);
-				}
-				treeNode.setRoot(null);
-			}
-			// Y左节点 / N右节点
-			else if (!eLC && eRC) {
-				TreeNode lC = treeNode.getLeftChild();
-				treeNode.setRoot(null);
-				treeNode.setLeftChild(null);
-				if (eRL) {
-					root.setLeftChild(lC);
-				} else {
-					root.setRightChild(lC);
-				}
-				// N左节点 / Y右节点
-			} else if (eLC) {
-				TreeNode rC = treeNode.getRightChild();
-				treeNode.setRoot(null);
-				treeNode.setRightChild(null);
-				if (eRL) {
-					root.setLeftChild(rC);
-				} else {
-					root.setRightChild(rC);
-				}
-				// Y左/右节点
-			} else {
-				// 交换并删除右子树最小节点(保持中序遍历不变)
-				TreeNode minNode = searchMinNode(treeNode.getRightChild());
-				treeNode.setValue(minNode.getValue());
-				TreeNode minRootNode = minNode.getRoot();
-				if (minRootNode.getLeftChild() != null && minNode.getValue() == minRootNode.getLeftChild().getValue()) {
-					minRootNode.setLeftChild(null);
-				} else {
-					minRootNode.setRightChild(null);
-				}
-				minNode.setRoot(null);
-			}
-		} else if (treeNode.getLeftChild() != null && a < treeNode.getValue()) {
-			remove(a, treeNode.getLeftChild());
-		} else {
-			remove(a, treeNode.getRightChild());
-		}
-	}
+    public BST(T rootValue) {
+        this.root = new TreeNode<>(rootValue);
+    }
 
-	private static TreeNode searchMinNode(TreeNode treeNode) {
-		if (treeNode.getLeftChild() != null) {
-			return searchMinNode(treeNode.getLeftChild());
-		} else {
-			return treeNode;
-		}
-	}
+    /**
+     * 新增节点 - 找到合适的位置插入
+     *
+     * @param value 节点值
+     * @author gdq 2021/6/29
+     */
+    public void add(T value) {
+        TreeNode<T> treeNode = new TreeNode<>(value);
+        // root为空
+        if (root == null) {
+            root = treeNode;
+            return;
+        }
+        TreeNode<T> currentNode = root;
+        while (true) {
+            T currentValue = currentNode.getValue();
+            int compareValue = value.compareTo(currentValue);
+            // 等于根节点 - 跳出
+            if (compareValue == 0) break;
+            // 判断节点位置
+            boolean isLeft = compareValue < 0;
+            TreeNode<T> childNode = isLeft ? currentNode.getLeftChild() : currentNode.getRightChild();
+            // 循环遍历
+            if (childNode != null) {
+                currentNode = childNode;
+                continue;
+            }
+            // 左/右节点为空,直接插入
+            if (isLeft) {
+                currentNode.setLeftChild(treeNode);
+            } else {
+                currentNode.setRightChild(treeNode);
+            }
+            treeNode.setParent(currentNode);
+            break;
+        }
+    }
+
+    /**
+     * 删除节点 - 找到相应位置删除维护关系
+     *
+     * @param value 节点值
+     * @author gdq 2021/6/29
+     */
+    public void remove(T value) {
+        if (root == null || root.getValue().compareTo(value) == 0) {
+            root = null;
+            return;
+        }
+        // 找到删除节点,记录相关信息
+        TreeNode<T> currentNode = root;
+        TreeNode<T> deleteNode = null;
+        boolean isLeft = false;
+        while (true) {
+            T currentValue = currentNode.getValue();
+            if (value.compareTo(currentValue) == 0) {
+                deleteNode = currentNode;
+                break;
+            }
+            isLeft = value.compareTo(currentValue) < 0;
+            currentNode = isLeft ? currentNode.getLeftChild() : currentNode.getRightChild();
+            if (currentNode == null) break;
+        }
+        // 存在删除节点,进行删除操作
+        if (deleteNode != null) {
+            boolean hasLeftChild = deleteNode.getLeftChild() != null;
+            boolean hasRightChild = deleteNode.getRightChild() != null;
+            // 1.叶子节点
+            if (!hasLeftChild && !hasRightChild) {
+                if (isLeft) deleteNode.getParent().setLeftChild(null);
+                else deleteNode.getParent().setRightChild(null);
+            }
+        }
+    }
 }

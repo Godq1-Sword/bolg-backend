@@ -5,7 +5,7 @@ import lombok.*;
 /**
  * @author gdq
  * date 2020/9/10
- * 树节点
+ * 二叉树节点
  */
 @Getter
 @Setter
@@ -18,62 +18,57 @@ public class TreeNode<T extends Comparable<T>> {
     private TreeNode<T> rightChild;
     // 父节点
     private TreeNode<T> parent;
+    // 高度
+    private int height;
 
     /**
      * 构造方法
      *
      * @param value 节点值
-     * @author gdq
+     * @author gdq 2021/6/30
      */
     public TreeNode(T value) {
         this.value = value;
     }
 
     /**
-     * 前置遍历 - 1.根节点 2.左节点 3.右节点
+     * 是否存在左节点
      *
-     * @param treeNode 节点
-     * @author gdq 2021/6/29
+     * @return boolean 是否存在
+     * @author gdq 2021/6/30
      */
-    public void PreTraver(TreeNode<T> treeNode) {
-        System.out.println(treeNode.value);
-        if (treeNode.leftChild != null) {
-            PreTraver(treeNode.leftChild);
-        }
-        if (treeNode.rightChild != null) {
-            PreTraver(treeNode.rightChild);
-        }
+    public boolean hasLeftChild() {
+        return leftChild != null;
     }
 
     /**
-     * 中置遍历 - 1.左节点 2.根节点 3.右节点
+     * 是否存在右节点
      *
-     * @param treeNode 节点
-     * @author gdq 2021/6/29
+     * @return boolean 是否存在
+     * @author gdq 2021/6/30
      */
-    public void MidTraver(TreeNode<T> treeNode) {
-        if (treeNode.leftChild != null) {
-            MidTraver(treeNode.leftChild);
-        }
-        System.out.println(treeNode.value);
-        if (treeNode.rightChild != null) {
-            MidTraver(treeNode.rightChild);
-        }
+    public boolean hasRightChild() {
+        return rightChild != null;
     }
 
     /**
-     * 后置遍历 - 1.左节点 2.右节点 3.根节点
-     *
-     * @param treeNode 节点
-     * @author gdq 2021/6/29
+     * 获取当前节点高度
+     * @return int 高度
+     * @author gdq 2021/6/30
      */
-    public void BehTraver(TreeNode<T> treeNode) {
-        if (treeNode.leftChild != null) {
-            BehTraver(treeNode.leftChild);
-        }
-        System.out.println(treeNode.value);
-        if (treeNode.rightChild != null) {
-            BehTraver(treeNode.rightChild);
-        }
+    public int getHeight() {
+        return getHeight(this);
     }
+
+    /**
+     * 获取节点高度
+     * @param treeNode 节点
+     * @return int 高度
+     * @author gdq 2021/6/30
+     */
+    private int getHeight(TreeNode<T> treeNode) {
+        if (treeNode == null) return 0;
+        return Math.max(getHeight(treeNode.getLeftChild()), getHeight(treeNode.getRightChild())) + 1;
+    }
+
 }

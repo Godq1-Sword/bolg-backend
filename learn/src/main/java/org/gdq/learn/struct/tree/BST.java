@@ -1,14 +1,11 @@
 package org.gdq.learn.struct.tree;
 
-import lombok.val;
-
 /**
  * @author gdq
  * date 2020/9/10
  * 二叉查找树BST(左小,右大)
  */
 public class BST<T extends Comparable<T>> {
-
     private TreeNode<T> root;
 
     public BST(T rootValue) {
@@ -16,14 +13,10 @@ public class BST<T extends Comparable<T>> {
     }
 
     /**
-     * 新增节点 - 找到合适的位置插入
-     *
-     * @param value 节点值
-     * @author gdq 2021/6/29
+     * 新增节点 - 找到合适的位置插入 * * @param value 节点值 * @author gdq 2021/6/29
      */
     public void add(T value) {
-        TreeNode<T> treeNode = new TreeNode<>(value);
-        // root为空
+        TreeNode<T> treeNode = new TreeNode<>(value); // root为空
         if (root == null) {
             root = treeNode;
             return;
@@ -54,14 +47,11 @@ public class BST<T extends Comparable<T>> {
     }
 
     /**
-     * 删除节点 - 找到相应位置删除维护关系
-     *
-     * @param value 节点值
-     * @author gdq 2021/6/29
+     * 删除节点 - 找到相应位置删除维护关系 * * @param value 节点值 * @author gdq 2021/6/29
      */
     public void remove(T value) {
-        if (root == null || root.getValue().compareTo(value) == 0) {
-            root = null;
+        // root为空 / 删除root
+        if (root == null) {
             return;
         }
         // 找到删除节点,记录相关信息
@@ -78,15 +68,81 @@ public class BST<T extends Comparable<T>> {
             currentNode = isLeft ? currentNode.getLeftChild() : currentNode.getRightChild();
             if (currentNode == null) break;
         }
+        boolean isRoot = deleteNode == root;
         // 存在删除节点,进行删除操作
         if (deleteNode != null) {
-            boolean hasLeftChild = deleteNode.getLeftChild() != null;
-            boolean hasRightChild = deleteNode.getRightChild() != null;
-            // 1.叶子节点
+            boolean hasLeftChild = deleteNode.hasLeftChild();
+            boolean hasRightChild = deleteNode.hasRightChild();
+            TreeNode<T> parent = deleteNode.getParent();
+            // 1.叶子节点 - 置空
             if (!hasLeftChild && !hasRightChild) {
-                if (isLeft) deleteNode.getParent().setLeftChild(null);
-                else deleteNode.getParent().setRightChild(null);
+                deleteNode = null;
+            } else if (hasLeftChild && !hasRightChild) {// 2.有左节点,无右节点 - 右节点顶点替换
+                deleteNode = deleteNode.getLeftChild();
+                deleteNode.setParent(parent);
+            } else if (!hasLeftChild) { // 3.有右节点,无左节点 - 左节点顶点替换
+                deleteNode = deleteNode.getRightChild();
+                deleteNode.setParent(parent);
+            } else { // 3.左右节点都存在 - 查找左节点最大值替换
+                TreeNode<T> leftChild = deleteNode.getLeftChild();
+                TreeNode<T> rightChild = deleteNode.getRightChild();
+                deleteNode = deleteNode.getLeftChild();
+                while (deleteNode.hasRightChild()) {
+                    deleteNode = deleteNode.getRightChild();
+                }
+                deleteNode.setLeftChild(leftChild);
+                leftChild.setParent(deleteNode);
+                deleteNode.setRightChild(rightChild);
+                rightChild.setParent(deleteNode);
+                deleteNode.getParent().setRightChild(null);
+                deleteNode.setParent(parent);
+            }
+            // 设置父子关系
+            if (!isRoot) {
+                if (isLeft) parent.setLeftChild(deleteNode);
+                else parent.setRightChild(deleteNode);
+            } else {
+                root = deleteNode;
             }
         }
+    }
+
+    /**
+     * 前置遍历 - 1.根节点 2.左节点 3.右节点 * * @param treeNode 节点 * @author gdq 2021/6/29
+     */
+    public void PreTraver(TreeNode<T> treeNode) {
+        System.out.println(treeNode.getValue());
+        if (treeNode.hasLeftChild()) {
+            PreTraver(treeNode.getLeftChild());
+        }
+        if (treeNode.hasRightChild()) {
+            PreTraver(treeNode.getRightChild());
+        }
+    }
+
+    /**
+     * 中置遍历 - 1.左节点 2.根节点 3.右节点 * * @param treeNode 节点 * @author gdq 2021/6/29
+     */
+    public void MidTraver(TreeNode<T> treeNode) {
+        if (treeNode.hasLeftChild()) {
+            MidTraver(treeNode.getLeftChild());
+        }
+        System.out.println(treeNode.getValue());
+        if (treeNode.hasRightChild()) {
+            MidTraver(treeNode.getRightChild());
+        }
+    }
+
+    /**
+     * 后置遍历 - 1.左节点 2.右节点 3.根节点 * * @param treeNode 节点 * @author gdq 2021/6/29
+     */
+    public void BehTraver(TreeNode<T> treeNode) {
+        if (treeNode.hasLeftChild()) {
+            BehTraver(treeNode.getLeftChild());
+        }
+        if (treeNode.hasRightChild()) {
+            BehTraver(treeNode.getRightChild());
+        }
+        System.out.println(treeNode.getValue());
     }
 }

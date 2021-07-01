@@ -29,6 +29,7 @@ public class TreeNode<T extends Comparable<T>> {
      */
     public TreeNode(T value) {
         this.value = value;
+        this.height = 1;
     }
 
     /**
@@ -53,15 +54,16 @@ public class TreeNode<T extends Comparable<T>> {
 
     /**
      * 获取当前节点高度
-     * @return int 高度
+     *
      * @author gdq 2021/6/30
      */
-    public int getHeight() {
-        return getHeight(this);
+    public void initHeight() {
+        this.height = getHeight(this);
     }
 
     /**
      * 获取节点高度
+     *
      * @param treeNode 节点
      * @return int 高度
      * @author gdq 2021/6/30

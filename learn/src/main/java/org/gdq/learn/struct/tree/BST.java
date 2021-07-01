@@ -47,7 +47,10 @@ public class BST<T extends Comparable<T>> {
     }
 
     /**
-     * 删除节点 - 找到相应位置删除维护关系 * * @param value 节点值 * @author gdq 2021/6/29
+     * 删除节点 - 找到相应位置删除维护关系
+     *
+     * @param value 节点值
+     * @author gdq 2021/6/29
      */
     public void remove(T value) {
         // root为空 / 删除root
@@ -77,13 +80,13 @@ public class BST<T extends Comparable<T>> {
             // 1.叶子节点 - 置空
             if (!hasLeftChild && !hasRightChild) {
                 deleteNode = null;
-            } else if (hasLeftChild && !hasRightChild) {// 2.有左节点,无右节点 - 右节点顶点替换
-                deleteNode = deleteNode.getLeftChild();
-                deleteNode.setParent(parent);
-            } else if (!hasLeftChild) { // 3.有右节点,无左节点 - 左节点顶点替换
+            } else if (!hasLeftChild) {// 2.无左节点
                 deleteNode = deleteNode.getRightChild();
                 deleteNode.setParent(parent);
-            } else { // 3.左右节点都存在 - 查找左节点最大值替换
+            } else if (!hasRightChild) {// 3.无右节点
+                deleteNode = deleteNode.getLeftChild();
+                deleteNode.setParent(parent);
+            } else {// 4.左右节点都存在 - 查找左子树最大值替换
                 TreeNode<T> leftChild = deleteNode.getLeftChild();
                 TreeNode<T> rightChild = deleteNode.getRightChild();
                 deleteNode = deleteNode.getLeftChild();
@@ -91,8 +94,8 @@ public class BST<T extends Comparable<T>> {
                     deleteNode = deleteNode.getRightChild();
                 }
                 deleteNode.setLeftChild(leftChild);
-                leftChild.setParent(deleteNode);
                 deleteNode.setRightChild(rightChild);
+                leftChild.setParent(deleteNode);
                 rightChild.setParent(deleteNode);
                 deleteNode.getParent().setRightChild(null);
                 deleteNode.setParent(parent);

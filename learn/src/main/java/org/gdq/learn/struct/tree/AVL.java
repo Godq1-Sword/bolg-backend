@@ -46,16 +46,7 @@ public class AVL<T extends Comparable<T>> {
                 replaceNode = leftChild;
                 replaceNode.setParent(parent);
             } else {// 左右节点不为空,找左子树最大值替换
-                replaceNode = leftChild;
-                while (replaceNode.hasRightChild()) {
-                    replaceNode = replaceNode.getRightChild();
-                }
-                replaceNode.setLeftChild(leftChild);
-                replaceNode.setRightChild(rightChild);
-                leftChild.setParent(replaceNode);
-                rightChild.setParent(replaceNode);
-                replaceNode.getParent().setRightChild(null);
-                replaceNode.setParent(parent);
+                replaceNode.swapMaxLeftNode();
             }
         }
         replaceNode.initHeight();

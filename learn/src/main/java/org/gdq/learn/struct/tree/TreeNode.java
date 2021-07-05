@@ -73,4 +73,24 @@ public class TreeNode<T extends Comparable<T>> {
         return Math.max(getHeight(treeNode.getLeftChild()), getHeight(treeNode.getRightChild())) + 1;
     }
 
+    /**
+     * 替换节点为  - 左子树最大值
+     * @author gdq 2021/7/5
+     */
+    public void swapMaxLeftNode() {
+        TreeNode<T> root = this;
+        TreeNode<T> leftChild = root.getLeftChild();
+        TreeNode<T> rightChild = root.getRightChild();
+        root = leftChild;
+        while (root.hasRightChild()) {
+            root = root.getRightChild();
+        }
+        root.setLeftChild(leftChild);
+        root.setRightChild(rightChild);
+        leftChild.setParent(root);
+        rightChild.setParent(root);
+        root.getParent().setRightChild(null);
+        root.setParent(parent);
+    }
+
 }

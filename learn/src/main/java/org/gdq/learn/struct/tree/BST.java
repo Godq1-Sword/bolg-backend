@@ -87,18 +87,7 @@ public class BST<T extends Comparable<T>> {
                 deleteNode = deleteNode.getLeftChild();
                 deleteNode.setParent(parent);
             } else {// 4.左右节点都存在 - 查找左子树最大值替换
-                TreeNode<T> leftChild = deleteNode.getLeftChild();
-                TreeNode<T> rightChild = deleteNode.getRightChild();
-                deleteNode = deleteNode.getLeftChild();
-                while (deleteNode.hasRightChild()) {
-                    deleteNode = deleteNode.getRightChild();
-                }
-                deleteNode.setLeftChild(leftChild);
-                deleteNode.setRightChild(rightChild);
-                leftChild.setParent(deleteNode);
-                rightChild.setParent(deleteNode);
-                deleteNode.getParent().setRightChild(null);
-                deleteNode.setParent(parent);
+                deleteNode.swapMaxLeftNode();
             }
             // 设置父子关系
             if (!isRoot) {

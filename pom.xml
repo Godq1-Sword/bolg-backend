@@ -4,14 +4,7 @@
     <!-- package -->
     <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
-    <!-- springboot -->
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.1.RELEASE</version>
-        <!-- lookup parent from repository -->
-        <relativePath/>
-    </parent>
+    <!-- parent:springBoot -->
     <!-- group artifact version name description -->
     <groupId>org.gdq</groupId>
     <artifactId>bolg-backend</artifactId>
@@ -28,24 +21,32 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>16</java.version>
+        <java.version>15</java.version>
     </properties>
     <!-- 版本管理 -->
     <dependencyManagement>
         <dependencies>
-            <!-- springcloud -->
+            <!-- springBoot -->
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Hoxton.SR6</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>2.5.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- springcloud alibaba -->
+            <!-- springCloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2020.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- springCloud alibaba -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.2.1.RELEASE</version>
+                <version>2021.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -129,6 +130,18 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- fastJSON -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.76</version>
+        </dependency>
+        <!-- apache lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
         </dependency>
     </dependencies>
     <!-- maven配置 -->

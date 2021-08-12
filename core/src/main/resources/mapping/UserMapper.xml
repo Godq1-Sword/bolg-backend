@@ -12,10 +12,6 @@
         from user_item
         where username = #{username}
     </select>
-    <select id="selectUsers" resultMap="userMap">
-        select *
-        from user_item
-    </select>
     <insert id="insertUser" parameterType="UserPO" keyProperty="id">
         insert into user_item(id, username, password)
         values (#{id}, #{username}, #{password})

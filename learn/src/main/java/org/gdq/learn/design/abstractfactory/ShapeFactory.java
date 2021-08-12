@@ -4,7 +4,7 @@ package org.gdq.learn.design.abstractfactory;
  * 图形工厂
  *
  * @author gdq
- * date 2021/3/16
+ * @since 2021/3/16
  */
 public class ShapeFactory extends AbstractFactory {
     @Override

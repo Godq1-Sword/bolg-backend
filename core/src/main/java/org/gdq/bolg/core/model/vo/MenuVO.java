@@ -3,7 +3,7 @@ package org.gdq.bolg.core.model.vo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.gdq.bolg.core.model.po.MenuPO;
 
 import java.util.ArrayList;

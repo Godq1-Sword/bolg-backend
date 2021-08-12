@@ -20,6 +20,8 @@ public class TreeNode<T extends Comparable<T>> {
     private TreeNode<T> parent;
     // 高度
     private int height;
+    // 红/黑
+    private boolean isRed;
 
     /**
      * 构造方法
@@ -75,6 +77,7 @@ public class TreeNode<T extends Comparable<T>> {
 
     /**
      * 替换节点为  - 左子树最大值
+     *
      * @author gdq 2021/7/5
      */
     public void swapMaxLeftNode() {
@@ -92,5 +95,4 @@ public class TreeNode<T extends Comparable<T>> {
         root.getParent().setRightChild(null);
         root.setParent(parent);
     }
-
 }

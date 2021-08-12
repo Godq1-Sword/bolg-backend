@@ -10,7 +10,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 // SpringCache缓存开启
 @EnableCaching
 public class CoreApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(CoreApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CoreApplication.class, args);
+    }
 }

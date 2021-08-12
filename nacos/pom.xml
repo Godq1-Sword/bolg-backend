@@ -10,7 +10,7 @@
         <!-- lookup parent from repository -->
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <!-- gourp artifact version name description -->
+    <!-- group artifact version name description -->
     <artifactId>nacos</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>nacos</name>

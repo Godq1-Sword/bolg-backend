@@ -4,17 +4,26 @@ package org.gdq.learn.design.singleton;
  * 单例模式 - 懒汉式
  *
  * @author gdq
- * date 2021/3/15
+ * @since 2021/3/15
  */
 public class Example02 {
+
     // 单例模式 - 核心私有构造方法[禁止额外初始化]
-    private Example02() {}
+    private Example02() {
+    }
 
     public final int hashCode = this.hashCode();
 
     // 懒汉式 - doubleCheck / volatile屏蔽指令重排序
     private static volatile Example02 INSTANCE = null;
 
+    /**
+     * 获取实例
+     *
+     * @return Example02 实例对象
+     * @author gdq
+     * @since 2021/3/15
+     */
     public static Example02 getInstance() {
         if (INSTANCE == null) {
             synchronized (Example02.class) {

@@ -4,7 +4,7 @@ package org.gdq.learn.design.abstractfactory;
  * 颜色enum
  *
  * @author gdq
- * date 2021/3/16
+ * @since 2021/3/16
  */
 public enum ColorType {
     // 红色

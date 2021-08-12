@@ -17,7 +17,7 @@ spring:
     druid:
       url: jdbc:mysql://localhost:3306/bolg?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=false
       username: root
-      password: 747436
+      password: g@d/q1?Mysql
       driver-class-name: com.mysql.jdbc.Driver
       # 初始化连接数
       initial-size: 5

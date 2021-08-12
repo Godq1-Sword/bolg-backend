@@ -8,7 +8,7 @@ package org.gdq.learn.struct.tree;
  * @author wb-gdq845533
  * @version : AVL.java, v 0.1 2021年06月30日 17:01 wb-gdq845533 Exp $
  */
-public class AVL<T extends Comparable<T>> {
+public class AVL<T extends Comparable<T>> extends BT<T> {
 
     // 根节点
     private TreeNode<T> root;
@@ -104,25 +104,31 @@ public class AVL<T extends Comparable<T>> {
         if (Math.abs(balanceFactor) <= 1) return treeNode;
         // LL
         if (balanceFactor > 1 && leftChildBF > 0) {
-            return rotateRight(treeNode);
+            rotateRight(treeNode);
+            return treeNode.getLeftChild();
         }
         // RR
         if (balanceFactor < -1 && rightChildBF < 0) {
-            return rotateLeft(treeNode);
+            rotateLeft(treeNode);
+            return treeNode.getRightChild();
         }
         // LR
         if (balanceFactor > 1 && leftChildBF < 0) {
-            TreeNode<T> rotateNode = rotateLeft(leftChild);
+            rotateLeft(leftChild);
+            TreeNode<T> rotateNode = leftChild.getRightChild();
             treeNode.setLeftChild(rotateNode);
             rotateNode.setParent(treeNode);
-            return rotateRight(treeNode);
+            rotateRight(treeNode);
+            return treeNode.getLeftChild();
         }
         // RL
         if (balanceFactor < -1 && rightChildBF > 0) {
-            TreeNode<T> rotateNode = rotateRight(rightChild);
+            rotateRight(rightChild);
+            TreeNode<T> rotateNode = rightChild.getLeftChild();
             treeNode.setRightChild(rotateNode);
             rotateNode.setParent(treeNode);
-            return rotateLeft(treeNode);
+            rotateLeft(treeNode);
+            return treeNode.getRightChild();
         }
         return treeNode;
     }
@@ -139,54 +145,6 @@ public class AVL<T extends Comparable<T>> {
         TreeNode<T> leftChild = treeNode.getLeftChild();
         TreeNode<T> rightChild = treeNode.getRightChild();
         return (leftChild == null ? 0 : leftChild.getHeight()) - (rightChild == null ? 0 : rightChild.getHeight());
-    }
-
-    /**
-     * 节点右旋
-     * A,B = A -> left
-     * A B节点互换位置,同时 A -> right = B -> right
-     *
-     * @param treeNode 节点
-     * @author gdq 2021/6/30
-     */
-    private TreeNode<T> rotateRight(TreeNode<T> treeNode) {
-        TreeNode<T> leftChild = treeNode.getLeftChild();
-        // leftChild右节点迁移 = treeNode->left
-        TreeNode<T> lRT = leftChild.getRightChild();
-        if (lRT != null) lRT.setParent(treeNode);
-        treeNode.setLeftChild(lRT);
-        // root<=>leftChild节点互换
-        leftChild.setParent(treeNode.getParent());
-        treeNode.setParent(leftChild);
-        leftChild.setRightChild(treeNode);
-        // 设置高度
-        leftChild.initHeight();
-        treeNode.initHeight();
-        return leftChild;
-    }
-
-    /**
-     * 节点左旋
-     * A,B = A -> right
-     * A B节点互换位置,同时 A -> left = B -> left
-     *
-     * @param treeNode 节点
-     * @author gdq 2021/6/30
-     */
-    private TreeNode<T> rotateLeft(TreeNode<T> treeNode) {
-        TreeNode<T> rightChild = treeNode.getRightChild();
-        // rightChild左节点迁移 = treeNode->left
-        TreeNode<T> rLT = rightChild.getLeftChild();
-        if (rLT != null) rLT.setParent(treeNode);
-        treeNode.setRightChild(rLT);
-        // root<=>rightChild节点互换
-        rightChild.setParent(treeNode.getParent());
-        treeNode.setParent(rightChild);
-        rightChild.setLeftChild(treeNode);
-        // 设置高度
-        rightChild.initHeight();
-        treeNode.initHeight();
-        return rightChild;
     }
 }
  

@@ -4,8 +4,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.gdq.bolg.core.model.po.UserPO;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * @author God_q1
  * date 2020/7/7
@@ -14,9 +12,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserDao {
-    UserPO selectUserByUsername(String username);
 
-    List<UserPO> selectUsers();
+    UserPO selectUserByUsername(String username);
 
     int insertUser(UserPO userPO);
 }

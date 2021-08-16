@@ -1,10 +1,9 @@
 package org.gdq.learn.design.build;
 
-import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Example
+ * 建造者模式例子
  *
  * @author gdq
  * @since 2021/8/12

@@ -1,8 +1,10 @@
 package org.gdq.learn.struct.tree;
 
 /**
- * @author wb-gdq845533
- * @version : BT.java, v 0.1 2021年07月12日 14:28 wb-gdq845533 Exp $
+ * 二叉树
+ *
+ * @author gdq
+ * @since 2021/7/21
  */
 public class BT<T extends Comparable<T>> {
 

@@ -5,8 +5,8 @@ package org.gdq.learn.struct.tree;
  * 左右子树的高度差小于等于1
  * 其每一个子树均为平衡二叉树
  *
- * @author wb-gdq845533
- * @version : AVL.java, v 0.1 2021年06月30日 17:01 wb-gdq845533 Exp $
+ * @author gdq
+ * @since 2021/8/18
  */
 public class AVL<T extends Comparable<T>> extends BT<T> {
 
@@ -22,7 +22,7 @@ public class AVL<T extends Comparable<T>> extends BT<T> {
     }
 
     private TreeNode<T> remove(T value, TreeNode<T> treeNode) {
-        if (treeNode == null) return null;
+        if (treeNode == null) { return null; }
         // 替换的节点
         TreeNode<T> replaceNode = treeNode;
         TreeNode<T> leftChild = treeNode.getLeftChild();
@@ -101,7 +101,7 @@ public class AVL<T extends Comparable<T>> extends BT<T> {
         int leftChildBF = getBalanceFactor(leftChild);
         TreeNode<T> rightChild = treeNode.getRightChild();
         int rightChildBF = getBalanceFactor(rightChild);
-        if (Math.abs(balanceFactor) <= 1) return treeNode;
+        if (Math.abs(balanceFactor) <= 1) { return treeNode; }
         // LL
         if (balanceFactor > 1 && leftChildBF > 0) {
             rotateRight(treeNode);
@@ -141,7 +141,7 @@ public class AVL<T extends Comparable<T>> extends BT<T> {
      * @author gdq 2021/6/30
      */
     private int getBalanceFactor(TreeNode<T> treeNode) {
-        if (treeNode == null) return 0;
+        if (treeNode == null) { return 0; }
         TreeNode<T> leftChild = treeNode.getLeftChild();
         TreeNode<T> rightChild = treeNode.getRightChild();
         return (leftChild == null ? 0 : leftChild.getHeight()) - (rightChild == null ? 0 : rightChild.getHeight());

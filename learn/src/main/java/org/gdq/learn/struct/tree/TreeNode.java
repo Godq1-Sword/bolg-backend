@@ -3,9 +3,10 @@ package org.gdq.learn.struct.tree;
 import lombok.*;
 
 /**
- * @author gdq
- * date 2020/9/10
  * 二叉树节点
+ *
+ * @author gdq
+ * @since 2020/9/10
  */
 @Getter
 @Setter
@@ -71,7 +72,7 @@ public class TreeNode<T extends Comparable<T>> {
      * @author gdq 2021/6/30
      */
     private int getHeight(TreeNode<T> treeNode) {
-        if (treeNode == null) return 0;
+        if (treeNode == null) { return 0; }
         return Math.max(getHeight(treeNode.getLeftChild()), getHeight(treeNode.getRightChild())) + 1;
     }
 

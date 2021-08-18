@@ -8,10 +8,16 @@ package org.gdq.learn.design.decorator;
  */
 public class Decorator implements Component {
 
-    private Component component;
+    // 内置类接口,方便链式调用
+    private final Component component;
+
+    public Decorator(Component component) {
+        this.component = component;
+    }
 
     @Override
     public void print() {
-
+        System.out.println("Decorator print...");
+        component.print();
     }
 }

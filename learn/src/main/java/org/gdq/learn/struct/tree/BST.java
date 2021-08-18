@@ -1,11 +1,10 @@
 package org.gdq.learn.struct.tree;
 
-import com.sun.source.tree.Tree;
-
 /**
- * @author gdq
- * date 2020/9/10
  * 二叉查找树BST(左小,右大)
+ *
+ * @author gdq
+ * @since 2020/9/10
  */
 public class BST<T extends Comparable<T>> extends BT<T> {
 

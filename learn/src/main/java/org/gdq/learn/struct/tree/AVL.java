@@ -57,7 +57,8 @@ public class AVL<T extends Comparable<T>> extends BT<T> {
     /**
      * 插入节点
      *
-     * @author gdq 2021/6/30
+     * @author gdq
+     * @since 2021/6/30
      */
     public void add(T value) {
         root = add(value, root);
@@ -67,7 +68,8 @@ public class AVL<T extends Comparable<T>> extends BT<T> {
      * 插入节点 - 递归
      *
      * @return boolean 是否存在
-     * @author gdq 2021/6/30
+     * @author gdq
+     * @since 2021/6/30
      */
     private TreeNode<T> add(T value, TreeNode<T> treeNode) {
         if (treeNode == null) {
@@ -138,7 +140,8 @@ public class AVL<T extends Comparable<T>> extends BT<T> {
      *
      * @param treeNode 根节点
      * @return int 平衡因子
-     * @author gdq 2021/6/30
+     * @author gdq
+     * @since 2021/6/30
      */
     private int getBalanceFactor(TreeNode<T> treeNode) {
         if (treeNode == null) { return 0; }
